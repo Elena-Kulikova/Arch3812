@@ -1,0 +1,5 @@
+package ModelElements;
+
+class Texture {
+
+}
