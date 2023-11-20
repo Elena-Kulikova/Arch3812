@@ -7,8 +7,16 @@ public class PoligonalModel {
     public List<Poligon> poligons;
     public List<Texture> textures;
 
+    // public PoligonalModel(List<Texture> Textures) {
+    //     this.Poligons = new ArrayList<>();
+    //     this.Textures = Textures;
+        
+    //     this.Poligons.add(new Poligon(new Point3D()));
+    //     }
+
     public PoligonalModel(List<Texture> textures) {
         this.poligons = new ArrayList<>();
         this.textures = textures;
+        this.poligons.add(new Poligon());
     }
 }
