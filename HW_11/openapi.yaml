@@ -60,13 +60,13 @@ paths:
     put:
       tags:
         - User
-      summary: Обновление пользвателя
-      description: Обновление пользователя в базе данных
+      summary: Обновить пользвателя
+      description: Обновить пользователя в базе
       operationId: updateUser
       parameters:
         - name: userId
           in: path
-          description: userID - Идентификатор пользователя
+          description: Идентификатор пользователя
           required: true
           schema:
             type: integer
@@ -92,12 +92,12 @@ paths:
       tags:
         - User
       summary: Поиск пользователя по ID
-      description: Поиск пользователя в базе данных
+      description: Поиск пользователя в базе
       operationId: getUserById
       parameters:
         - name: userId
           in: path
-          description: userID - Идентификатор пользователя
+          description: Идентификатор пользователя
           required: true
           schema:
             type: integer
@@ -121,7 +121,7 @@ paths:
     delete:
       tags:
         - User
-      summary: Удаление пользователя
+      summary: Удаление пользователя по ID
       description: Удаление пользователя из базы данных
       operationId: deleteUser
       parameters:
@@ -133,7 +133,7 @@ paths:
             type: string
         - name: userId
           in: path
-          description: userID - идентификатор пользователя
+          description: ID - идентификатор пользователя
           required: true
           schema:
             type: integer
@@ -141,13 +141,6 @@ paths:
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
         '400':
           description: Invalid User value
         '404':
@@ -160,10 +153,10 @@ paths:
       tags:
         - Group
       summary: Добавить группу
-      description: Добавить группу в базу данных
+      description: Добавить группу в базу
       operationId: addGroup
       requestBody:
-        description: Создание новой группы в базе данных
+        description: Создание новой группы в базе
         content:
           application/json:
             schema:
@@ -187,38 +180,25 @@ paths:
                 $ref: '#/components/schemas/Group'
         '405':
           description: Invalid input
-
-  /Group/UpdateById/{groupId}:
-     put:
+          
+  /Group/updateById/{groupId}:
+    put:
       tags:
         - Group
-      summary: Обновление группы
-      description: Обновление группы в базе данных
-      operationId: 
+      summary: Обновить группу
+      description: Обновить группу пользователей в базе
+      operationId: updateGroup
       parameters:
         - name: groupId
           in: path
-          description: groupID - Идентификатор группы
+          description: Обновление группы
           required: true
           schema:
             type: integer
             format: int64
-      requestBody:
-        description: Обновить существующую группу в базе данных
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Group'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Group'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Group'
-        required: true
       responses:
         '200':
-          description: Successful operation
+          description: successful operation
           content:
             application/json:
               schema:
@@ -230,10 +210,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Group not found
-        '405':
-          description: Validation exception
-
-
+  
   /Group/findById/{groupId}:
     get:
       tags:
@@ -244,7 +221,7 @@ paths:
       parameters:
         - name: groupId
           in: path
-          description: groupID - идентификатор группы
+          description: Поиск группы
           required: true
           schema:
             type: integer
@@ -280,7 +257,7 @@ paths:
             type: string
         - name: groupId
           in: path
-          description: groupID - идентификатор группы
+          description: ID - идентификатор группы
           required: true
           schema:
             type: integer
@@ -294,7 +271,7 @@ paths:
           description: Group not found
   
   # РОБОТ-ПЫЛЕСОС
-    /Robot:
+  /Robot:
     post:
       tags:
         - Robot
@@ -327,7 +304,7 @@ paths:
         '405':
           description: Invalid input
 
-    /Robot/updateById/{robotId}:
+  /Robot/updateById/{robotId}:
     put:
       tags:
         - Robot
@@ -364,18 +341,24 @@ paths:
           description: Robot not found
         '405':
           description: Validation exception
-          
-    /Robot/findById/{robotId}:
+
+  /Robot/findById/{robotId}:
     get:
       tags:
         - Robot
       summary: Поиск робота-пылесоса по ID
-      description: Поиск робота-пылесоса в базе
-      operationId: getRobotById
+      description: Поиск робота-пылесоса в базе данных
+      operationId: getRobot
       parameters:
         - name: robotId
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: robotId
           in: path
-          description: roborID - идентификатор робота-пылесоса
+          description: robotId - идентификатор робота-пылесоса
           required: true
           schema:
             type: integer
@@ -383,17 +366,12 @@ paths:
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Robot'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Robot'
         '400':
-          description: Invalid ID supplied
+          description: Invalid robot value
         '404':
           description: Robot not found
+          
+ 
  
   /Robot/deleteById/{robotId}:      
     delete:
@@ -519,24 +497,18 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Schedule not found
-            
-    /Schedule/deleteById/{scheduleId}:      
+  
+  /Schedule/deleteById/{scheduleId}:      
     delete:
       tags:
         - Schedule
-      summary: Удаление расписание по ID
+      summary: Удаление расписания по ID
       description: Удаление расписания из базы данных
       operationId: deleteScheduleById
       parameters:
         - name: scheduleId
-          in: header
-          description: ''
-          required: false
-          schema:
-            type: string
-        - name: scheduleId
           in: path
-          description: ID - индентификатор расписания
+          description: scheduleId - идентификатор пользователя
           required: true
           schema:
             type: integer
@@ -552,9 +524,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Schedule'
         '400':
-          description: Invalid Schedule value
+          description: Invalid ID supplied
         '404':
           description: Schedule not found
+            
+
 
 
 components:
